@@ -2,7 +2,7 @@ package org.example;
 
 import java.util.Random;
 
-    public class massivy {
+    public class Massivy {
         public static void main(String[] args) {
             int[] numbers = new int[10];
             Random random = new Random();
