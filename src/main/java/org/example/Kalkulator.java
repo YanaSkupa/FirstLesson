@@ -3,16 +3,19 @@ package org.example;
 import java.util.Scanner;
 
 public class Kalkulator {
-        public static void main(String[] args) {
-            Scanner scanner = new Scanner(System.in);
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
-            System.out.print("Введіть перше число: ");
+        boolean repeat = true;
+
+        while (repeat) {
+            System.out.print("Введи перше число: ");
             double num1 = scanner.nextDouble();
 
-            System.out.print("Введіть оператор (+, -, *, /): ");
+            System.out.print("Введи оператор (+, -, *, /): ");
             String operator = scanner.next();
 
-            System.out.print("Введіть друге число: ");
+            System.out.print("Введи друге число: ");
             double num2 = scanner.nextDouble();
 
             double result = 0;
@@ -31,26 +34,36 @@ public class Kalkulator {
             }
 
             System.out.println("Результат: " + result);
-        }
 
-        public static double add(double a, double b) {
-            return a + b;
-        }
+            System.out.print("Хочеш ще щось порахувати? (так/ні): ");
+            String response = scanner.next();
 
-        public static double subtract(double a, double b) {
-            return a - b;
-        }
-
-        public static double multiply(double a, double b) {
-            return a * b;
-        }
-
-        public static double divide(double a, double b) {
-            if (b != 0) {
-                return a / b;
-            } else {
-                System.out.println("Ділення на нуль неможливе");
-                return Double.NaN;
+            if (!response.equalsIgnoreCase("так")) {
+                repeat = false;
             }
         }
     }
+
+    public static double add(double a, double b) {
+        return a + b;
+    }
+
+    public static double subtract(double a, double b) {
+        return a - b;
+    }
+
+    public static double multiply(double a, double b) {
+        return a * b;
+    }
+
+    public static double divide(double a, double b) {
+        if (b != 0) {
+            return a / b;
+        } else {
+            System.out.println("Ділення на нуль неможливе");
+            return Double.NaN;
+        }
+    }
+}
+
+
