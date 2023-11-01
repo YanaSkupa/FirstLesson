@@ -1,43 +1,59 @@
 package org.example.montiHolla;
+
 import java.util.Random;
 
 public class MontiHolla {
-
     public static void main(String[] args) {
         int totalGames = 1000000;
-
         int stayWins = 0;
         int switchWins = 0;
 
-        Random random = new Random();
-
         for (int i = 0; i < totalGames; i++) {
-            int carLocation = random.nextInt(3) + 1;
-            int playerChoice = random.nextInt(3) + 1;
-            int revealedDoor;
-            do {
-                revealedDoor = random.nextInt(3) + 1;
-            } while (revealedDoor == carLocation || revealedDoor == playerChoice);
-            if (playerChoice == carLocation) {
+            int carPosition = getRandomCarPosition();
+            int playerChoice = getRandomPlayerChoice();
+            int revealedGoat = getRevealedGoat(carPosition, playerChoice);
+            int finalChoiceStay = playerChoice;
+            int finalChoiceSwitch = switchChoice(playerChoice, revealedGoat);
+
+            if (finalChoiceStay == carPosition) {
                 stayWins++;
             }
-            int newChoice;
-            do {
-                newChoice = random.nextInt(3) + 1;
-            } while (newChoice == playerChoice || newChoice == revealedDoor);
 
-            if (newChoice == carLocation) {
+            if (finalChoiceSwitch == carPosition) {
                 switchWins++;
             }
         }
-        System.out.println("Підходи, коли гравець залишає свій вибір:");
-        System.out.println("Виграв: " + stayWins);
-        System.out.println("Програв: " + (totalGames - stayWins));
-        System.out.println("% виграшів: " + (stayWins / (double) totalGames * 100) + "%");
 
-        System.out.println("\nПідходи, коли гравець міняє свій вибір:");
-        System.out.println("Виграв: " + switchWins);
-        System.out.println("Програв: " + (totalGames - switchWins));
-        System.out.println("% виграшів: " + (switchWins / (double) totalGames * 100) + "%");
+        double stayWinPercentage = (double) stayWins / totalGames * 100;
+        double switchWinPercentage = (double) switchWins / totalGames * 100;
+
+        System.out.println("Wins by staying: " + stayWins + " (" + stayWinPercentage + "%)");
+        System.out.println("Wins by switching: " + switchWins + " (" + switchWinPercentage + "%)");
+    }
+
+    private static int getRandomCarPosition() {
+        Random random = new Random();
+        return random.nextInt(3);
+    }
+
+    private static int getRandomPlayerChoice() {
+        Random random = new Random();
+        return random.nextInt(3);
+    }
+
+    private static int getRevealedGoat(int carPosition, int playerChoice) {
+        Random random = new Random();
+        int revealedGoat;
+
+        do {
+            revealedGoat = random.nextInt(3);
+        } while (revealedGoat == carPosition || revealedGoat == playerChoice);
+
+        return revealedGoat;
+    }
+
+    private static int switchChoice(int playerChoice, int revealedGoat) {
+        int remainingDoor = 3 - playerChoice - revealedGoat;
+        return remainingDoor;
     }
 }
