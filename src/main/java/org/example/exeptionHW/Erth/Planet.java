@@ -21,26 +21,12 @@ public enum Planet {
         this.weight = weight;
         this.distanceFromSun = distanceFromSun;
     }
-
     public String getName() {
         return name;
     }
-
-    public double getWeight() {
-        return weight;
-    }
-
-
     public double calculateTimeToStopSeeing() {
         double lightDelay = 2 * distanceFromSun / SPEED_OF_LIGHT;
         double weightDelay = Math.sqrt(weight) * 1e-8;
         return lightDelay + weightDelay;
-    }
-
-    public static void main(String[] args) {
-        for (Planet planet : Planet.values()) {
-            double timeToStopSeeing = planet.calculateTimeToStopSeeing();
-            System.out.println("Час, коли астрономи перестануть бачити планету " + planet.getName() + ": " + timeToStopSeeing + " с");
-        }
     }
 }
