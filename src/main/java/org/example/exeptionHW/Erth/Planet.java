@@ -11,22 +11,20 @@ public enum Planet {
     NEPTUNE("Нептун", 1.02413e26, 4.4987e12);
 
     private final String name;
-    private final double weight;
     private final double distanceFromSun;
+    private final double distanceFromEarth;
 
-    private static final double SPEED_OF_LIGHT = 299792458.0;
-
-    Planet(String name, double weight, double distanceFromSun) {
+    Planet(String name, double distanceFromEarth, double distanceFromSun) {
         this.name = name;
-        this.weight = weight;
         this.distanceFromSun = distanceFromSun;
+        this.distanceFromEarth = distanceFromEarth;
     }
     public String getName() {
         return name;
     }
     public double calculateTimeToStopSeeing() {
-        double lightDelay = 2 * distanceFromSun / SPEED_OF_LIGHT;
-        double weightDelay = Math.sqrt(weight) * 1e-8;
-        return lightDelay + weightDelay;
+        double timeToPlanet = distanceFromSun / Constants.SPEED_OF_LIGHT.getValue();
+        double timeFromPlanetToEarth = distanceFromEarth / Constants.SPEED_OF_LIGHT.getValue();
+        return timeToPlanet + timeFromPlanetToEarth;
     }
 }
